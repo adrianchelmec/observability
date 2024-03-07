@@ -1,3 +1,9 @@
+# Node exporter: http://localhost:9100/metrics
+# Prometheus: http://localhost:9090/
+# AlertManager: http://localhost:9093/
+# Grafana: http://localhost:3000/
+# Grafana datasource: http://prometheus:9090
+
 version: '3.8'
 
 volumes:
@@ -20,8 +26,6 @@ services:
     ports:
       - 9100:9100
 
-# http://localhost:9100/metrics
-
   prometheus:
     image: prom/prometheus:v2.50.1
     container_name: prometheus
@@ -40,20 +44,13 @@ services:
     links:
       - node-exporter
 
-# http://localhost:9090/
-
   alertmanager:
     image: prom/alertmanager:v0.27.0
     ports:
       - 9093:9093
     restart: always
-    # command:
-    #   - '-config.file=/etc/alertmanager/config.yml'
-    #   - '-storage.path=/alertmanager'
     links:
       - prometheus
-
-# http://localhost:9093/
 
   grafana:
     image: grafana/grafana:10.0.12
@@ -63,7 +60,3 @@ services:
       - 3000:3000
     links:
       - prometheus
-
-# http://localhost:3000/
-
-# http://prometheus:9090
