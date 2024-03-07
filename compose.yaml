@@ -1,3 +1,4 @@
+# download both files
 # docker compose up -d
 
 # Node exporter: http://localhost:9100/metrics
